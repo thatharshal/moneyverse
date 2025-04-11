@@ -12,7 +12,7 @@
 
 > It empowers users to understand the impact of their money moves across time like a time machine for your wallet.
 
-D> esigned with a modern **glassmorphic UI** and powered by **Together.ai**, this tool makes financial planning engaging and smart just like a multiverse for your wallet.
+> Designed with a modern **glassmorphic UI** and powered by **Together.ai**, this tool makes financial planning engaging and smart just like a multiverse for your wallet.
 
 ---
 
