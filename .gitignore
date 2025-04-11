@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+*.env
+
+# Byte-compiled / cache
+*.sqlite3
+*.db
+
+# VSCode and system files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# macOS / Linux
+*.swp
+*.swo
+
+# Flask-specific
+instance/
+*.log
+
+# Render/Deployment Artifacts
+*.bak
+*.tar.gz
+*.zip
+
+# Compiled JS/CSS (if any build process)
+dist/
+build/
+
+# Node stuff (if you add npm later for Tailwind etc.)
+node_modules/
+
+# IDE-specific
+.idea/
+
+# Secrets
+.env

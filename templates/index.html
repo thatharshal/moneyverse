@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyVerse : Financial Time Machine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+</head>
+<body class="bg-cover bg-center text-white min-h-screen">
+    <video autoplay muted loop playsinline 
+         class="fixed top-0 left-0 w-full h-full object-cover z-[-1]">
+    <source src="{{ url_for('static', filename='videos/bg.mp4') }}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+    <header class="">
+        <div class="flex items-center justify-center min-h-screen text-center">
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg px-10 py-8 shadow-lg">
+              <h1 class="text-4xl md:text-5xl font-bold text-indigo-200 font-inter drop-shadow-sm">
+                MoneyVerse
+              </h1>
+              <p class="text-lg md:text-xl mt-2 text-indigo-100 italic font-inter">
+                Multiverse of Finance
+              </p>
+            </div>
+          </div>
+          
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Input Panel -->
+            <div class="lg:col-span-1">
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-lg p-6">
+                    <h2 class="text-xl font-semibold mb-4">Your Financial Settings</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Monthly Income (₹)</label>
+                            <input type="number" id="income" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" value="75000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Monthly Expenses (₹)</label>
+                            <input type="number" id="expenses" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" value="50000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Current Savings (₹)</label>
+                            <input type="number" id="savings" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" value="200000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Investments (₹)</label>
+                            <input type="number" id="investments" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" value="300000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Debt (₹)</label>
+                            <input type="number" id="debt" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" value="150000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Debt Interest Rate (%)</label>
+                            <input type="number" id="debtRate" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" value="10.5">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Investment Return (%)</label>
+                            <input type="number" id="investmentReturn" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" value="12">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-1">Years to Project</label>
+                            <input type="range" id="years" min="1" max="30" value="10" class="input-range">
+                            <div class="flex justify-between text-xs text-gray-400">
+                                <span>1 year</span>
+                                <span id="yearsValue">10 years</span>
+                                <span>30 years</span>
+                            </div>
+                        </div>
+                        
+                        <button id="calculate" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition duration-300">
+                            Calculate Projections
+                        </button>
+                    </div>
+                </div>
+            <!-- Past Decisions Analysis -->
+            <div class="mt-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-5 rounded shadow-sm max-w-full md:w-[600px] mx-auto">
+                <h2 class="text-lg font-semibold text-indigo-300 mb-2">📜 Add Past Financial Decisions</h2>
+            
+                <div class="space-y-2">
+                    <input id="decisionText" type="text" placeholder="What did you do?" class="w-full p-2 rounded bg-gray-700 text-white text-sm">
+                    
+                    <div class="flex gap-2">
+                        <select id="gainOrLoss" class="w-1/2 p-2 rounded bg-gray-700 text-white text-sm">
+                            <option value="">Gain or Loss?</option>
+                            <option value="gain">Gain</option>
+                            <option value="loss">Loss</option>
+                        </select>
+                        <input id="amount" type="number" placeholder="₹ Amount" class="w-1/2 p-2 rounded bg-gray-700 text-white text-sm">
+                    </div>
+            
+                    <input id="year" type="number" placeholder="Year (e.g. 2021)" class="w-full p-2 rounded bg-gray-700 text-white text-sm">
+            
+                    <button onclick="addStackedDecision()" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-500 text-sm">
+                        ➕ Add to Stack
+                    </button>
+            
+                    <button onclick="analyzeStackedDecisions()" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500 text-sm">
+                        📊 View Impact
+                    </button>
+                </div>
+            
+                <div id="stackedList" class="mt-4 text-sm text-gray-300 space-y-2"></div>
+                <div id="stackedImpact" class="mt-4 text-gray-100 text-sm font-medium"></div>
+            </div>
+                   
+            </div>
+            
+            <!-- Results Panel -->
+            <div class="lg:col-span-2">
+                <!-- Scenario Selector -->
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 shadow-lg p-6 mb-6">
+                    <h2 class="text-xl font-semibold mb-4">Explore "What If" Scenarios</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button class="scenario-btn bg-indigo-900 hover:bg-indigo-800 text-indigo-200 py-3 px-4 rounded-md transition duration-300 flex items-center" data-scenario="career">
+                            <i class="fas fa-briefcase mr-2"></i> Career Change
+                        </button>
+                        <button class="scenario-btn bg-green-900 hover:bg-green-800 text-green-200 py-3 px-4 rounded-md transition duration-300 flex items-center" data-scenario="investment">
+                            <i class="fas fa-chart-line mr-2"></i> Investment Strategy
+                        </button>
+                        <button class="scenario-btn bg-purple-900 hover:bg-purple-800 text-purple-200 py-3 px-4 rounded-md transition duration-300 flex items-center" data-scenario="purchase">
+                            <i class="fas fa-home mr-2"></i> Major Purchase
+                        </button>
+                    </div>
+                    
+                    <!-- Scenario Details -->
+                    <div id="scenarioDetails" class="mt-4 hidden">
+                        <div id="careerScenario" class="scenario-panel">
+                            <h3 class="font-medium mb-2">Career Change Scenario</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">New Salary (₹)</label>
+                                    <input type="number" id="newSalary" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" placeholder="Enter new salary">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Years Until Change</label>
+                                    <input type="number" id="yearsUntilChange" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" placeholder="Years until change" value="2">
+                                </div>
+                            </div>
+                            <button class="apply-scenario mt-4 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition duration-300">
+                                Apply Scenario
+                            </button>
+                        </div>
+                        
+                        <div id="investmentScenario" class="scenario-panel">
+                            <h3 class="font-medium mb-2">Investment Strategy Scenario</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">New Return Rate (%)</label>
+                                    <input type="number" id="newReturnRate" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" placeholder="Enter new return rate">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Monthly Investment (₹)</label>
+                                    <input type="number" id="monthlyInvestment" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" placeholder="Additional monthly investment">
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Investment Type</label>
+                                <select id="investmentType" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md">
+                                    <option value="equity">Equity (Stocks/MFs)</option>
+                                    <option value="debt">Debt (FDs/Bonds)</option>
+                                    <option value="hybrid">Hybrid Funds</option>
+                                    <option value="realestate">Real Estate</option>
+                                    <option value="gold">Gold</option>
+                                </select>
+                            </div>
+                            <button class="apply-scenario mt-4 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition duration-300">
+                                Apply Scenario
+                            </button>
+                        </div>
+                        
+                        <div id="purchaseScenario" class="scenario-panel">
+                            <h3 class="font-medium mb-2">Major Purchase Scenario</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Purchase Amount (₹)</label>
+                                    <input type="number" id="purchaseAmount" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" placeholder="Enter purchase amount">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-300 mb-1">Years Until Purchase</label>
+                                    <input type="number" id="yearsUntilPurchase" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md" placeholder="Years until purchase" value="3">
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Purchase Type</label>
+                                <select id="purchaseType" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md">
+                                    <option value="home">Home</option>
+                                    <option value="car">Car</option>
+                                    <option value="education">Education</option>
+                                    <option value="wedding">Wedding</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="mt-2">
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Payment Method</label>
+                                <select id="paymentMethod" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md">
+                                    <option value="cash">Cash (from savings)</option>
+                                    <option value="loan">Loan (5 year term)</option>
+                                    <option value="emi">EMI (3 year term)</option>
+                                </select>
+                            </div>
+                            <button class="apply-scenario mt-4 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition duration-300">
+                                Apply Scenario
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Results Visualization -->
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-lg p-6 mb-6">
+                    <h2 class="text-xl font-semibold mb-4">Financial Projections</h2>
+            
+                    
+                    <div class="h-80">
+                        <canvas id="financialChart"></canvas>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                        <div class="bg-indigo-900 p-4 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-sm text-indigo-300">Projected Net Worth</span>
+                                    <h3 id="netWorth" class="text-2xl font-bold">₹0</h3>
+                                </div>
+                                <div class="bg-indigo-800 p-2 rounded-full">
+                                    <i class="fas fa-wallet text-indigo-300"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-sm text-indigo-300" id="netWorthChange"></div>
+                        </div>
+                        
+                        <div class="bg-green-900 p-4 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-sm text-green-300">Investment Growth</span>
+                                    <h3 id="investmentGrowth" class="text-2xl font-bold">₹0</h3>
+                                </div>
+                                <div class="bg-green-800 p-2 rounded-full">
+                                    <i class="fas fa-chart-line text-green-300"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-sm text-green-300" id="investmentChange"></div>
+                        </div>
+                        
+                        <div class="bg-purple-900 p-4 rounded-lg">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-sm text-purple-300">Debt Remaining</span>
+                                    <h3 id="debtRemaining" class="text-2xl font-bold">₹0</h3>
+                                </div>
+                                <div class="bg-purple-800 p-2 rounded-full">
+                                    <i class="fas fa-credit-card text-purple-300"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-sm text-purple-300" id="debtChange"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- AI Advisor -->
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-lg p-6 mt-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900 p-2 rounded-full mr-3">
+                            <i class="fas fa-robot text-indigo-400"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold">AI Financial Advisor</h2>
+                    </div>
+                    
+                    <div id="aiChat" class="h-64 overflow-y-auto mb-4 space-y-3 pr-2">
+                        <div class="ai-message ai-response p-3">
+                            <p>Namaste! I'm your AI financial advisor. I'll analyze your finances and provide personalized recommendations for the Indian market.</p>
+                        </div>
+                        <div class="ai-message ai-response p-3">
+                            <p>Enter your financial details and click "Calculate Projections" to begin. You can also ask me specific questions about your finances.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2">
+                        <input type="text" id="aiQuery" placeholder="Ask me anything..." class="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-md">
+                        <button id="askAiBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button id="optimizeBtn" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md transition duration-300 flex items-center justify-center">
+                            <i class="fas fa-magic mr-2"></i> Optimize My Finances
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 border-t border-gray-700 mt-12">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex justify-center items-center text-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-semibold">Moneyverse: The Multiverse of Finance</h3>
+                    <p class="text-sm text-gray-400 mt-1">xto10x Hackathon</p>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-sm text-gray-500">
+                <p>@thatharshal</p>
+                <p>© 2025 Moneyverse. All calculations are estimates and not financial advice. Consult a SEBI registered advisor before making investment decisions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/projections.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scenarios.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/advisor.js') }}"></script> 
+    <script src="{{ url_for('static', filename='js/init.js') }}"></script>   
+    
+</body>
+</html>
