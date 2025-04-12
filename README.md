@@ -6,6 +6,8 @@
 
 ---
 ### 🔗 Link to deployed website: https://moneyverse.onrender.com/
+**⚠️NOTE: Please give it a few secounds to load, as Render (the deployment service) will spin down the website with inactivity, which can delay requests by 20-40 seconds.**
+### 🔗 Link to video presentation: https://youtu.be/7WRLu_syVEI
 ---
 ## 📘 Project Overview
 
