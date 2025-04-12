@@ -5,7 +5,7 @@
 > Rethink your choices. Rebuild your finances. Rewrite your story.
 
 ---
-### Link to deployed website: https://moneyverse.onrender.com/
+### 🔗 Link to deployed website: https://moneyverse.onrender.com/
 ---
 ## 📘 Project Overview
 
