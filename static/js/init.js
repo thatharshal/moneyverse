@@ -1,9 +1,9 @@
 // init.js
-if (typeof generateOptimizedAdvice === "function") {
-    document.getElementById('optimizeBtn').addEventListener('click', generateOptimizedAdvice);
-  } else {
-    console.error("generateOptimizedAdvice is not defined");
-  }
+// if (typeof generateOptimizedAdvice === "function") {
+//     document.getElementById('optimizeBtn').addEventListener('click', generateOptimizedAdvice);
+//   } else {
+//     console.error("generateOptimizedAdvice is not defined");
+//   }
   
 document.addEventListener('DOMContentLoaded', () => {
     const yearsInput = document.getElementById('years');
@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Reset button
-    document.getElementById('resetBtn').addEventListener('click', () => {
-        calculateProjections();
-        document.getElementById('scenarioName').textContent = 'Base Scenario';
-        addAiMessage("Reset to base financial scenario");
-    });
+    // document.getElementById('resetBtn').addEventListener('click', () => {
+    //     calculateProjections();
+    //     document.getElementById('scenarioName').textContent = 'Base Scenario';
+    //     addAiMessage("Reset to base financial scenario");
+    // });
 
     // Ask AI
     document.getElementById('askAiBtn').addEventListener('click', askAiQuestion);
