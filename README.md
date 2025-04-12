@@ -113,6 +113,7 @@ https://github.com/user-attachments/assets/06f911d9-ba84-44cd-89a1-24875828e658
 
 ---
 
-##🙌 Credits:
-Built with love for learning, experimentation, and financial empowerment.
-Created by Hrashal Chaudhari — xto10x Hackathon (Edition 3)- April 2025 🚀
+## 🙌 Credits:
+>Built with love for learning, experimentation, and financial empowerment.
+
+>Created by Harshal Chaudhari for **xto10x Hackathon (Edition 3)- April 2025 🚀**
