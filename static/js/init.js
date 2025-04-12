@@ -4,7 +4,13 @@
 //   } else {
 //     console.error("generateOptimizedAdvice is not defined");
 //   }
-  
+document.addEventListener("DOMContentLoaded", function () {
+    const bgVideo = document.querySelector("video");
+
+    if (bgVideo) {
+      bgVideo.playbackRate = 0.66; // Adjust speed here (0.6 = 60% of original speed)
+    }
+  });  
 document.addEventListener('DOMContentLoaded', () => {
     const yearsInput = document.getElementById('years');
     const yearsValue = document.getElementById('yearsValue');
